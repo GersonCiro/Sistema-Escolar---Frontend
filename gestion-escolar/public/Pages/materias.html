@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Materias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50">
+    <div id="navbar-component"></div>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-bold mb-4">Registrar Materia</h2>
+            <form id="formMateria" class="flex gap-4 items-end">
+                <div class="flex-grow">
+                    <label class="block text-sm text-gray-600 mb-1">Nombre Materia</label>
+                    <input type="text" id="nombreMateria" class="w-full border rounded p-2" required>
+                </div>
+                <div class="w-32">
+                    <label class="block text-sm text-gray-600 mb-1">Créditos</label>
+                    <input type="number" id="creditosMateria" class="w-full border rounded p-2" required>
+                </div>
+                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700">Crear</button>
+            </form>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <table class="w-full text-left">
+                <thead class="bg-gray-100">
+                    <tr><th class="p-3">Materia</th><th class="p-3">Créditos</th><th class="p-3 text-right">Acción</th></tr>
+                </thead>
+                <tbody id="tablaMaterias"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/config/config.js"></script>
+    <script src="../js/services/api.js"></script>
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/views/materias.js"></script>
+</body>
+</html>

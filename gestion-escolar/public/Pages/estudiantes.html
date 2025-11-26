@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiantes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50">
+    <!-- Componente Navbar -->
+    <div id="navbar-component"></div>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Formulario -->
+            <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md h-fit">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Nuevo Estudiante</h2>
+                <form id="formEstudiante">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-1">Nombre Completo</label>
+                        <input type="text" id="nombre" class="w-full border-gray-300 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: Juan Pérez" required>
+                    </div>
+                    <!-- Agrega más campos si tu backend los pide (email, telefono, etc) -->
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 transition">Guardar Estudiante</button>
+                </form>
+            </div>
+
+            <!-- Tabla -->
+            <div class="w-full md:w-2/3 bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Listado</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 uppercase text-sm">
+                                <th class="p-3">ID</th>
+                                <th class="p-3">Nombre</th>
+                                <th class="p-3 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaEstudiantes" class="text-gray-700">
+                            <!-- JS insertará filas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts en orden -->
+    <script src="../js/config/config.js"></script>
+    <script src="../js/services/api.js"></script>
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/views/estudiantes.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Asignaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50">
+    <div id="navbar-component"></div>
+
+    <div class="container mx-auto px-4 py-12 flex justify-center">
+        <div class="bg-white w-full max-w-lg p-8 rounded-xl shadow-lg border-t-8 border-purple-600">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Matricular Estudiante</h1>
+            
+            <form id="formAsignacion">
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2">Estudiante</label>
+                    <select id="selEstudiante" class="w-full border-2 border-gray-200 rounded-lg p-3 bg-white focus:border-purple-500 outline-none">
+                        <option>Cargando...</option>
+                    </select>
+                </div>
+
+                <div class="mb-8">
+                    <label class="block text-gray-700 font-bold mb-2">Materia</label>
+                    <select id="selMateria" class="w-full border-2 border-gray-200 rounded-lg p-3 bg-white focus:border-purple-500 outline-none">
+                        <option>Cargando...</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 rounded-lg hover:bg-purple-700 transition transform hover:scale-105">
+                    Confirmar Inscripción
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/config/config.js"></script>
+    <script src="../js/services/api.js"></script>
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/views/asignaciones.js"></script>
+</body>
+</html>

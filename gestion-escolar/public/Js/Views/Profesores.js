@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', cargarProfesores);
 
+// Carga la lista de profesores en la tabla
 async function cargarProfesores() {
     const data = await ApiService.get('/profesores');
     const tabla = document.getElementById('tablaProfesores');
@@ -19,6 +20,7 @@ async function cargarProfesores() {
     });
 }
 
+// Manejo del envío del formulario de nuevo profesor
 document.getElementById('formProfesor').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
@@ -31,6 +33,7 @@ document.getElementById('formProfesor').addEventListener('submit', async (e) => 
     }
 });
 
+// Función global para eliminar un profesor
 window.eliminarProfesor = async (id) => {
     if(confirm("¿Eliminar profesor?")) {
         await ApiService.delete(`/profesores/${id}`);

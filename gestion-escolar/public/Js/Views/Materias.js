@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', cargarMaterias);
 
+// Carga la lista de materias en la tabla
 async function cargarMaterias() {
     const materias = await ApiService.get('/materias');
     const tabla = document.getElementById('tablaMaterias');
@@ -19,6 +20,7 @@ async function cargarMaterias() {
     });
 }
 
+// Inicia la edición de una materia
 window.iniciarEdicion = (materia) => {
     document.getElementById('materiaId').value = materia.id;
     document.getElementById('nombreMateria').value = materia.nombre;
@@ -29,6 +31,7 @@ window.iniciarEdicion = (materia) => {
     document.getElementById('btnCancel').classList.remove('hidden');
 };
 
+// Resetea el formulario a su estado inicial
 window.resetForm = () => {
     document.getElementById('formMateria').reset();
     document.getElementById('materiaId').value = '';
@@ -39,10 +42,11 @@ window.resetForm = () => {
     document.getElementById('btnCancel').classList.add('hidden');
 };
 
+// Manejo del envío del formulario de materia
 document.getElementById('formMateria').addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = document.getElementById('materiaId').value;
-    const data = { nombre: document.getElementById('nombreMateria').value }; // Solo enviamos nombre
+    const data = { nombre: document.getElementById('nombreMateria').value };
 
     let exito = false;
     if (id) {

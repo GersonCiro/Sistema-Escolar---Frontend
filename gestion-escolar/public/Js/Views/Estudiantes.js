@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', cargarEstudiantes);
 
+// Carga la lista de estudiantes en la tabla
 async function cargarEstudiantes() {
     const estudiantes = await ApiService.get('/estudiantes');
     const tabla = document.getElementById('tablaEstudiantes');
@@ -19,6 +20,7 @@ async function cargarEstudiantes() {
     });
 }
 
+// Manejo del envío del formulario de nuevo estudiante
 document.getElementById('formEstudiante').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
@@ -31,6 +33,7 @@ document.getElementById('formEstudiante').addEventListener('submit', async (e) =
     }
 });
 
+// Función global para eliminar un estudiante
 window.eliminarEstudiante = async (id) => {
     if(confirm("¿Eliminar estudiante?")) {
         await ApiService.delete(`/estudiantes/${id}`);

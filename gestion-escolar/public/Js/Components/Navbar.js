@@ -11,8 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     <ul class="flex space-x-6">
                         <li><a href="../index.html" class="hover:text-blue-300 transition">Inicio</a></li>
                         <li><a href="estudiantes.html" class="hover:text-blue-300 transition">Estudiantes</a></li>
+                        <li><a href="profesores.html" class="hover:text-blue-300 transition">Docentes</a></li>
                         <li><a href="materias.html" class="hover:text-blue-300 transition">Materias</a></li>
-                        <li><a href="asignaciones.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Matricular</a></li>
+                        <li><a href="asignaciones.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Asignaciones</a></li>
                     </ul>
                 </div>
             </div>

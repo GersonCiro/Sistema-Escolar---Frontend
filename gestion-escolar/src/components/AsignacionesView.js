@@ -16,12 +16,14 @@ function AsignacionesView() {
     cargarAsignaciones('estudiante');
   }, []);
 
+  // Cambiar tipo de asignación (estudiante/profesor)
   const cambiarTipo = (tipo) => {
     setCurrentType(tipo);
     cargarOpcionesUsuarios(tipo);
     cargarAsignaciones(tipo);
   };
 
+  // Cargar opciones de usuarios (estudiantes o profesores)
   const cargarOpcionesUsuarios = async (tipo) => {
     try {
       const endpoint = tipo === 'estudiante' ? '/estudiantes' : '/profesores';
@@ -32,6 +34,7 @@ function AsignacionesView() {
     }
   };
 
+  // Cargar materias
   const cargarMaterias = async () => {
     try {
       const data = await ApiService.get('/materias');
@@ -41,6 +44,7 @@ function AsignacionesView() {
     }
   };
 
+  // Cargar asignaciones según el tipo
   const cargarAsignaciones = async (tipo) => {
     try {
       const endpoint = tipo === 'estudiante' ? '/asignaciones/estudiantes' : '/asignaciones/profesores';
@@ -51,18 +55,44 @@ function AsignacionesView() {
     }
   };
 
+  // Manejar el envío del formulario de asignación
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!usuarioId || !materiaId) {
-      alert('Por favor seleccione ambos campos.');
+      alert('❌ Por favor seleccione ambos campos.');
+      return;
+    }
+
+    const usuarioIdNum = parseInt(usuarioId);
+    const materiaIdNum = parseInt(materiaId);
+    
+    // Validar según el tipo (estudiante o profesor)
+    let asignacionExistente = false;
+    
+    if (currentType === 'estudiante') {
+      // Para estudiantes, buscar por estudiante_id y materia_id
+      asignacionExistente = asignaciones.some(asig => 
+        parseInt(asig.estudiante_id) === usuarioIdNum && 
+        parseInt(asig.materia_id) === materiaIdNum
+      );
+    } else {
+      // Para profesores, buscar por profesor_id y materia_id
+      asignacionExistente = asignaciones.some(asig => 
+        parseInt(asig.profesor_id) === usuarioIdNum && 
+        parseInt(asig.materia_id) === materiaIdNum
+      );
+    }
+    
+    if (asignacionExistente) {
+      alert('🚫 Este usuario ya tiene asignada esta materia en el sistema');
       return;
     }
 
     try {
       const payload = {
         tipo: currentType,
-        id_persona: parseInt(usuarioId),
-        id_materia: parseInt(materiaId),
+        id_persona: usuarioIdNum,
+        id_materia: materiaIdNum,
       };
       const result = await ApiService.post('/asignaciones', payload);
       if (result) {
@@ -71,14 +101,15 @@ function AsignacionesView() {
         setMateriaId('');
         await cargarAsignaciones(currentType);
       } else {
-        alert('Error al realizar la asignación');
+        alert('❌ Error al realizar la asignación');
       }
     } catch (error) {
       console.error('Error realizando asignación:', error);
-      alert('Error al realizar la asignación');
+      alert('❌ Error al realizar la asignación');
     }
   };
 
+  // Eliminar asignación
   const eliminarAsignacion = async (id) => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm('¿Seguro que desea eliminar esta asignación?')) {

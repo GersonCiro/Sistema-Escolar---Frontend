@@ -16,25 +16,44 @@ function EstudiantesView() {
       const data = await ApiService.get('/estudiantes');
       setEstudiantes(data);
     } catch (error) {
-      console.error('Error cargando estudiantes:', error);
+      console.error('❌ Error cargando estudiantes:', error);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validar campos vacíos
+    if (!nombre.trim() || !apellido.trim()) {
+      alert('❌ Por favor completa todos los campos');
+      return;
+    }
+    
+    // Validar si ya existe un estudiante con el mismo nombre y apellido
+    const estudianteExistente = estudiantes.some(
+      est => est.nombre.toLowerCase() === nombre.toLowerCase() && 
+              est.apellido.toLowerCase() === apellido.toLowerCase()
+    );
+    
+    if (estudianteExistente) {
+      alert('🚫 Este estudiante ya está registrado en el sistema');
+      return;
+    }
+    
     try {
       const data = { nombre, apellido };
       const result = await ApiService.post('/estudiantes', data);
       if (result) {
+        alert('✅ Estudiante registrado exitosamente');
         setNombre('');
         setApellido('');
         await cargarEstudiantes();
       } else {
-        alert('Error al guardar estudiante');
+        alert('❌ Error al guardar estudiante');
       }
     } catch (error) {
       console.error('Error guardando estudiante:', error);
-      alert('Error al guardar estudiante');
+      alert('❌ Error al guardar estudiante');
     }
   };
 
@@ -45,7 +64,7 @@ function EstudiantesView() {
         await ApiService.delete(`/estudiantes/${id}`);
         cargarEstudiantes();
       } catch (error) {
-        console.error('Error eliminando estudiante:', error);
+        console.error('⚠️ Error eliminando estudiante:', error);
       }
     }
   };

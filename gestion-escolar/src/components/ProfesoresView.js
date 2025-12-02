@@ -22,19 +22,38 @@ function ProfesoresView() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validar campos vacíos
+    if (!nombre.trim() || !apellido.trim()) {
+      alert('❌ Por favor completa todos los campos');
+      return;
+    }
+    
+    // Validar si ya existe un profesor con el mismo nombre y apellido
+    const profesorExistente = profesores.some(
+      prof => prof.nombre.toLowerCase() === nombre.toLowerCase() && 
+              prof.apellido.toLowerCase() === apellido.toLowerCase()
+    );
+    
+    if (profesorExistente) {
+      alert('🚫 Este profesor ya está registrado en el sistema');
+      return;
+    }
+    
     try {
       const data = { nombre, apellido };
       const result = await ApiService.post('/profesores', data);
       if (result) {
+        alert('✅ Profesor registrado exitosamente');
         setNombre('');
         setApellido('');
         await cargarProfesores();
       } else {
-        alert('Error al guardar profesor');
+        alert('❌ Error al guardar profesor');
       }
     } catch (error) {
       console.error('Error guardando profesor:', error);
-      alert('Error al guardar profesor');
+      alert('❌ Error al guardar profesor');
     }
   };
 

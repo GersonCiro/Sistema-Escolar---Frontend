@@ -23,13 +23,38 @@ function MateriasView() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validar campo vacío
+    if (!nombre.trim()) {
+      alert('❌ Por favor ingresa el nombre de la materia');
+      return;
+    }
+    
+    // Si no está editando, validar que no exista duplicado
+    if (!isEditing) {
+      const materiaExistente = materias.some(
+        mat => mat.nombre.toLowerCase() === nombre.toLowerCase()
+      );
+      
+      if (materiaExistente) {
+        alert('🚫 Esta materia ya está registrada en el sistema');
+        return;
+      }
+    }
+    
     try {
       const data = { nombre };
       let result;
       if (isEditing && materiaId) {
         result = await ApiService.put(`/materias/${materiaId}`, data);
+        if (result) {
+          alert('✅ Materia actualizada exitosamente');
+        }
       } else {
         result = await ApiService.post('/materias', data);
+        if (result) {
+          alert('✅ Materia registrada exitosamente');
+        }
       }
       if (result) {
         setNombre('');
@@ -37,11 +62,11 @@ function MateriasView() {
         setIsEditing(false);
         await cargarMaterias();
       } else {
-        alert('Error al guardar materia');
+        alert('❌ Error al guardar materia');
       }
     } catch (error) {
       console.error('Error guardando materia:', error);
-      alert('Error al guardar materia');
+      alert('❌ Error al guardar materia');
     }
   };
 
